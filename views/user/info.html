@@ -1,0 +1,20 @@
+info
+
+{{userList}}
+
+<table>
+    <td>번호</td>
+    <td>아이디</td>
+    <td>패스워드</td>
+    <td>이름</td>
+    <td>성별</td>
+    <td>이미지</td>
+</table>
+
+{% all for in item %}
+    <table>
+        <td>{{item.userid}}</td>
+        <td>{{item.userpw}}</td>
+        <td>{{item.username}}</td>
+    </table>
+{% endfor %}
