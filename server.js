@@ -4,11 +4,22 @@ const app = express();
 const {User} = require('./models');
 const router = require('./routers/index');
 const nunjucks = require('nunjucks');
+const bodyParser = require('body-parser')
+const session = require('express-session')
 
 app.set('view engine','html');
 nunjucks.configure('views',{
     express:app,
 })
+
+app.use(session({
+    secret:'aaa',
+    resave:false,
+    saveUninitialized:true,
+}))
+
+app.use(bodyParser.urlencoded({extended:false}));
+
 
 sequelize.sync({force:false,})
 .then(()=>{

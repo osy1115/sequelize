@@ -1,3 +1,29 @@
 join
+<form action="/user/join_success" method="POST">
+    <table>
+        <tr>
+            <td>아이디</td>
+            <td><input type="text" name="userid"></td>
+        </tr>
 
-{{userList}}
+        <tr>
+            <td>패스워드</td>
+            <td><input type="password" name="userpw"></td>
+        </tr>
+
+        <tr>
+            <td>이름</td>
+            <td><input type="text" name="username"></td>
+        </tr>
+
+        <tr>
+            <td>성별</td>
+            <td>
+                 <input type="radio" name="gender" value="0">남자
+                 <input type="radio" name="gender" value="1">여자
+             </td>
+        </tr>
+    </table>
+
+    <input type="submit" value="가입 완료">
+</form>

@@ -1,5 +1,9 @@
 let main = (req,res)=>{
-    res.send('Hello router !?')
+    console.log(req.session.uid);
+    res.render('index.html',{
+        userid:req.session.uid,
+        isLogin:req.session.isLogin
+    })
 }
 
-exports.main = main;
+module.exports.main = main;
