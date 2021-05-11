@@ -1,17 +1,19 @@
 
-const {User} = require('../../models')
+const {User} = require('../../models/index')
 
 let join = (req,res) => {
     res.render('./user/join.html')
 }
 
 let login = (req,res) => {
-    res.render('./user/login.html')
+    let flag = req.query.flag;
+    res.render('./user/login.html',{ flag })
 }
 
 let info = async (req,res) => {
     let userlist = await User.findAll({});
-    console.log(userlist)
+
+
     res.render('./user/info.html',{
         userlist:userlist,
     })
@@ -31,9 +33,10 @@ let join_success = async (req,res) =>{
     let userpw = req.body.userpw;
     let username = req.body.username;
     let gender = req.body.gender;
+    let userimage = req.file == undefined ? '' : req.file.path;
 
     try{
-    let rst = await User.create({userid,userpw,username,gender})
+    let rst = await User.create({userid,userpw,username,gender, userimage})
 } catch (e) {
     console.log(e);
 }
@@ -47,12 +50,17 @@ let login_check = async (req,res) =>{
     let result = await User.findOne({
         where:{ userid, userpw }
     })
-    req.session.uid = userid;
-    req.session.isLogin = true;
+
+    if(result == null){
+        res.redirect('/user/login?flag=0')
+    } else {
+        req.session.uid = userid;
+        req.session.isLogin = true;
 
     req.session.save(()=>{
         res.redirect('/');
-    })
+     })
+    }
 }
 
 module.exports = {

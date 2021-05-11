@@ -11,10 +11,13 @@ info
     <td>이미지</td>
 </table>
 
-{% all for in item %}
-    <table>
-        <td>{{item.userid}}</td>
-        <td>{{item.userpw}}</td>
-        <td>{{item.username}}</td>
+{% for item in userlist %}
+<table>
+        <td>{{item.DataValue.id}}</td>
+        <td>{{item.DataValue.userid}}</td>
+        <td>{{item.DataValue.userpw}}</td>
+        <td>{{item.DataValue.username}}</td>
+        <td>{{item.DataValue.gender}}</td>
+        <td>{{item.DataValue.user image}}</td>
     </table>
 {% endfor %}

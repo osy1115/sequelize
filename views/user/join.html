@@ -1,18 +1,25 @@
 join
-<form action="/user/join_success" method="POST">
+<form action="/user/join_success" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
-            <td>아이디</td>
-            <td><input type="text" name="userid"></td>
+            <td>아이디</td> <!--중복체크 ajax-->
+            <td><input type="text" name="userid">
+                <p id="userid_msg">올바른 아이디입니다.</p>
+            </td>
         </tr>
 
         <tr>
-            <td>패스워드</td>
-            <td><input type="password" name="userpw"></td>
+            <td>패스워드</td> <!--패스워드 확인 두번입력하기위해-->
+            <td><input type="password" id="userpw" name="userpw"></td>
         </tr>
 
         <tr>
-            <td>이름</td>
+            <td>패스워드 확인</td>
+            <td><input type="password" name="userpw_check"></td>
+        </tr>
+
+        <tr>
+            <td>이름</td> <!--글자 길이-->
             <td><input type="text" name="username"></td>
         </tr>
 
@@ -20,10 +27,57 @@ join
             <td>성별</td>
             <td>
                  <input type="radio" name="gender" value="0">남자
-                 <input type="radio" name="gender" value="1">여자
+                 <input type="radio" name="gender" value="1" checked>여자
              </td>
+        </tr>
+        <tr>
+            <td>이미지</td>
+            <td><input type="file" name="img"></td>
         </tr>
     </table>
 
-    <input type="submit" value="가입 완료">
+    <input type="button" id="login_submit" value="가입 완료">
 </form>
+<script type="text/javascript">
+        const btn = document.querySelector('#login_submit');
+        const login_frm = document.querySelector('#login_frm');
+        const pwd1 = document.querySelector('#userpw');
+        const pwd2 = document.querySelector('#userpw_check');
+        const userid_msg = document.querySelector('#userid_msg');
+        const usrid = document.querySelector('#userid');
+
+    function password_check(){
+        let pwd1 = document.querySelector('#userpw');
+        let pwd2 = document.querySelector('#userpw_check');
+
+        console.log(pwd1.value,pwd2.value);
+        return pwd1.value == pwd2.value;
+    }
+
+ㄴ
+
+function userid_check(){
+    login_flag = true;
+    if( login_flag){
+        userid_msg.innerHTML = '올바른 아이디입니다.'
+        userid_msg.style.color = 'green';
+    } else {
+        userid_msg.innerHTML = '중복된 아이디입니다.'
+        userid_msg.style.color = 'red';
+    }
+}
+
+userid.addEventListener('focusout',userid_check)
+
+btn.addEventListener('click',()=>{
+    pwd_check = password_check();
+    if(pwd_check){
+        login_frm.submit();
+    } else {
+        pwd1.value = '';
+        pwd2.value = '';
+        pwd1.focus();
+        alert('패스워드가 서로 다릅니다.')
+    }
+})
+</script>

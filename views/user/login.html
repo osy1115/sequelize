@@ -7,7 +7,7 @@ login
                 아이디
             </td>
             <td>
-                <input type="text" name="userid">
+                <input type="text" id="userid" name="userid">
             </td>
         </tr>
         <tr>
@@ -15,10 +15,25 @@ login
                 패스워드
             </td>
             <td>
-                <input type="password" name="userpw">
+                <input type="password" id="userpw" name="userpw">
             </td>
         </tr>
     </table>
     <input type="submit" value="로그인하기">
 </form>
-{{userList}}
+{% if flag == '0' %}
+<script type="text/javascript">
+    alert('아이디와 패스워드를 확인해주세요');
+    const id = document.querySelector('#userid');
+    const pw = document.querySelector('#userpw');
+    id.setAttribute('style','background:yellow;');
+    pw.setAttribute('style','backgroundLyellow;');
+
+    id.addEventListener('focus',()=>{
+        id.setAttribute('style','background:#fff;');
+    })
+    pw.addEventListener('focus',()=>{
+        pw.setAttribute('style','backgroudn:#fff;');
+    })
+</script>
+{% endif %}
